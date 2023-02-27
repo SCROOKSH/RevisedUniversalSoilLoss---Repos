@@ -1,0 +1,13 @@
+# Data Requirements {#sec-Data-Requirements .unnumbered}
+
+Soil erosion using the RUSLE requires several data inputs, which fulfill the data needs of each RUSLE factor (refer to section \@ref(factors)). To model soil erosion, the below data sets **must** be supplied.
+
+1.  **Rainfall Factor (R)** - Annual, monthly, bi-weekly, weekly, or daily rainfall data.
+
+2.  **Slope Length (LS)** - A Digital Terrain Model covering the entire extent of the study area.
+
+3.  **Soil Erodibility (K)** - Mapped soil coverage data (polygon or raster) *and* K values for each soil class.
+
+4.  **Crop/Vegetation and Management Factor (C)** - Data on crop and vegetation management in the study area. *Here, we consider vegetation class and burn severity under the C factor.*
+
+5.  **The Support Practice Factor (P)** - This refers to any erosion control practices. The P factor is not relevant in high elevations topographically complex areas. *Here, we do not include the P factor.*

@@ -1,0 +1,133 @@
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+r3dDefaults = rgl::r3dDefaults
+m = structure(c(0.921, -0.146, 0.362, 0, 0.386, 0.482, -0.787, 0, 
+-0.06, 0.864, 0.5, 0, 0, 0, 0, 1), .Dim = c(4L, 4L))
+r3dDefaults$FOV = 50
+r3dDefaults$userMatrix = m
+r3dDefaults$zoom = 0.75
+
+knitr::opts_chunk$set(
+  comment =  "#>", 
+  collapse = TRUE,
+  fig.align = "center")
+
+rgl::setupKnitr(autoprint = TRUE)
+
+library(kableExtra)
+```
+
+# RUSLE Factors {#factors .unnumbered}
+
+The Revised Universal Soil Loss Equation (RUSLE) is a modified version of the Universal Soil Loss Equation (USLE) proposed by [Wischmeier and Smith, 1978](https://naldc.nal.usda.gov/download/CAT79706928/PDF), which was developed for predicting annual soil loss across agriculture regions. In this study, the RUSLE is used to estimate soil loss during the first year after fire (Trozzo Creek Fire (2021)).
+
+The RUSLE equation is comprised of five factors which are multiplied to produce a RUSLE soil erosion surface.
+
+```{=tex}
+\begin{equation}
+A = R * LS * K * C * P
+\end{equation}
+```
+Where **R** is the rainfall erosivity, **LS** is a non-dimensional topographic factor, **K** is the soil erodibility, **C** is a cover-management factor, and **P** reflects soil conservation practices.
+
+## Factor 1 - Rainfall Erosivity (R) {#sec-factor-1 .unnumbered}
+
+R is the rainfall and runoff factor by geographic location. The greater the intensity and duration of the rain storm, the higher the erosion potential.
+
+Among the factors included in RUSLE, rainfall erosivity is often most closely correlated with temporal trends in soil loss ([Hedding et al.,2020](https://www.researchgate.net/publication/336586973_A_comprehensive_study_of_erosivity_and_soil_erosion_over_a_small_tropical_islet_Round_Island_Mauritius)), since sediments are rarely detached without sufficient rainfall. The impact of rainfall's kinetic energy on soil erosion is captured in the R factor. We use global rainfall erosivity data combined and provided by the [European Soil Data Centre (ESDAC)](https://esdac.jrc.ec.europa.eu/content/global-rainfall-erosivity#tabs-0-description=1). The data used in this study is the most accurate and currently available in the study region. However, the spatial scale of this data is a limitation and prevents high-resolution RUSLE outputs from being derived.
+
+## Factor 2 - Slope Length (LS) {#sec-factor-2 .unnumbered}
+
+LS is the slope length-gradient factor. The LS factor represents a ratio of soil loss under given conditions to that at a site. The steeper and longer the slope, the higher the risk for erosion.
+
+The LS factor is one of the most challenging factors of the RUSLE. The L and S factors are combined as the topographic LS factor. Slope steepness (S) seeks to capture the rate of change in soil loss with varying gradients, while slope length (L) accounts for the distance over which a slope gradient occurs. Estimates of S and L for British Columbia are improved via enhanced hydrological flow routing and empirical equations describing S and L (see **Table 1**). Here, the LS-calculation is performed using the original equation proposed by Desmet and Govers (1996).
+
+**Table 1.** Values for topographic factor, LS, for low ratio of rill:inter-rill erosion, such as consolidated soil conditions with cover and rangeland (applicable to thawing soils where both inter-rill and rill erosion are significant) ([Wall et al., 2002](https://sis.agr.gc.ca/cansis/publications/manuals/2002-92/rusle-can.pdf)).
+
+```{r,warning=FALSE, message=FALSE, results='hide', include = FALSE}
+average_LS_df <- data.frame("Slope(%)" = c(0.2, 0.5, 1, 2, 3, 4, 5, 6, 8, 10, 12, 14, 16, 20, 25, 30, 40, 50, 60), 
+                           "2" = c(0.04, 0.07, 0.11, 0.18, 0.23, 0.27, 0.31, 0.35, 0.41, 0.48, 0.61, 0.70, 0.79, 0.96, 1.15, 1.33, 1.64, 1.91, 2.15), 
+                           "5" = c(0.04, 0.08, 0.12, 0.20, 0.27, 0.33, 0.39, 0.45, 0.55, 0.66, 0.86, 1.01, 1.16, 1.44, 1.77, 2.08, 2.64, 3.13, 3.56), 
+                           "10" = c(0.04, 0.08, 0.13, 0.22, 0.31, 0.39, 0.47, 0.57, 0.69, 0.84, 1.11, 1.33, 1.54, 1.96, 2.45, 2.92, 3.78, 4.55, 5.22),
+                           "15" = c(0.04, 0.08, 0.13, 0.23, 0.33, 0.42, 0.52, 0.61, 0.78, 0.96, 1.29, 1.56, 1.82, 2.34, 2.96, 3.56, 4.67, 5.66, 6.54), 
+                           "25" = c(0.04, 0.08, 0.14, 0.25, 0.36, 0.47, 0.59, 0.70, 0.92, 1.15, 1.57, 1.91, 2.25, 2.94, 3.77, 4.57, 6.08, 7.45, 8.67), 
+                           "50" = c(0.04, 0.09, 0.15, 0.28, 0.41, 0.55, 0.70, 0.84, 1.15, 1.47, 2.03, 2.52, 3.00, 4.00, 5.22, 6.42, 8.72, 10.83, 12.71), 
+                           "75" = c(0.04, 0.09, 0.15, 0.29, 0.44, 0.60, 0.77, 0.94, 1.31, 1.69, 2.37, 2.96, 3.55, 4.79, 6.31, 7.84, 10.76, 13.47, 15.91), 
+                           "100" = c(0.04, 0.09, 0.16, 0.30, 0.47, 0.64, 0.83, 1.02, 1.43, 1.87, 2.64, 3.31, 4.00, 5.44, 7.23, 9.03, 12.50, 15.73, 18.65), 
+                           "150" = c(0.04, 0.09, 0.16, 0.32, 0.50, 0.70, 0.92, 1.14, 1.63, 2.15, 3.07, 3.89, 4.74, 6.51, 8.74, 11.01, 15.43, 19.57, 23.34),
+                           "200" = c(0.04,0.09, 0.16, 0.33, 0.53, 0.74, 0.99, 1.24, 1.79, 2.38, 3.42, 4.36, 5.33, 7.39, 10.01, 12.68, 17.91, 22.85, 27.36),
+                           "250" = c(0.04, 0.09, 0.17, 0.35, 0.55, 0.78, 1.05, 1.32, 1.92, 2.57, 3.72, 4.77, 5.85, 8.16, 11.12, 14.15, 20.12, 25.77, 30.95),
+                           "300" = c(0.04, 0.09, 0.17, 0.35, 0.57, 0.81, 1.10, 1.39, 2.03, 2.74, 3.99, 5.12, 6.31, 8.85, 12.11, 15.47, 22.11, 28.43, 34.23))
+```
+
+```{r,warning=FALSE, message=FALSE, echo=FALSE}
+average_LS_df %>%
+  kbl(col.names = c("Slope(%)", "2m", "5m", "10m", "15m", "25m", "50m", "75m", "100m", "150m", "200m", "250m", "300m")) %>%
+  kable_classic_2(full_width = F,  html_font = "Times New Roman") %>%
+  add_header_above(c(" " = 1, "Slope length in meters (m)" = c(12))) %>%
+  column_spec(1, width = "1.5cm",  border_right = TRUE)
+```
+
+## Factor 3 - Soil Erodibility (K) {#factor3 .unnumbered .unnumbered}
+
+K is the soil erodibility factor. It is the average soil loss in tonnes/hectare (tons/acre) for a particular soil. K is a measure of the susceptibility of soil particles to detachment and transport by rainfall and runoff.
+
+The K factor incorporates the physical and chemical properties of soil, including fractions of sand, silt, and clay, permeability, structural stability, and organic matter content. The K factor ranges from 1 (very easily eroded) to 0.01 (very stable soil). K factors have been estimated for several surface textures (**Table 2**). We combined soil texture data for the study region with previously calculated soil erodibility data for the province of British Columbia. Without field data, K value information is limited, hence our use of [province-wide](https://sis.agr.gc.ca/cansis/publications/manuals/2002-92/rusle-can.pdf) soil erodibility assessments.
+
+**Table 2.** Soil erodibility values (K) for common surface textures in Canada ([Wall et al., 2002](https://sis.agr.gc.ca/cansis/publications/manuals/2002-92/rusle-can.pdf)).
+
+```{r,warning=FALSE, message=FALSE, results='hide', echo = FALSE, include = FALSE}
+average_K_df <- data.frame(Texture_Class = c("Clay", "Clay Loam", "Coarse Sandy Loam","Fine Sand", "Fine Sandy Loam", "Heavy Clay", "Loam", "Loamy Fine Sand", "Loamy Sand","Loamy Very Fine Sand", "Sand", "Sandy Clay Loam", "Sandy Loam", "Silt Loam", "Silty Clay", "Silty Clay Loam", "Very Fine Sand", "Very Fine Sandy Loam"), 
+                 Average_K_Value = c(0.029, 0.040, 0.009, 0.011, 0.024, 0.022, 0.040, 0.015, 0.005, 0.051, 0.001, 0.026, 0.017, 0.050, 0.034, 0.042, 0.057, 0.046))
+```
+
+```{r,warning=FALSE, message=FALSE, echo=FALSE}
+average_K_df %>%
+  kbl(col.names = c("Texture Class", "Average K Value")) %>%
+  kable_classic_2(full_width = F, html_font = "Times New Roman")
+```
+
+## Factor 4 - Crop/Vegetation and Management Factor (C) {#sec-factor-4 .unnumbered}
+
+C is the crop/vegetation and management factor. It is used to determine the relative effectiveness of soil and crop management systems in terms of preventing soil loss.
+
+In Canada, C factor values have been developed for major agricultural regions where heavy cropping, tillage, and soil management systems of Canadian crops have been developed. Formulations of the C factor generally only include three cover scenarios (i.e., bare ground, grass, and tree cover) that remain static throughout the year ([Dymond et al., 2010](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2867509/)). The majority of the study area is covered in forested and semi-natural land. Here, C factor values are assigned based on those proposed by ([Rozos et al. 2013)](https://www.researchgate.net/publication/235988636_Application_of_the_revised_universal_soil_loss_equation_model_on_landslide_prevention_An_example_from_N_Euboea_Evia_Island_Greece) (**Table 3**).
+
+**Table 3.** Crop/Vegetation and Management (C) for common non-agriculture landscapes ([Rozos et al. 2013](https://www.researchgate.net/publication/235988636_Application_of_the_revised_universal_soil_loss_equation_model_on_landslide_prevention_An_example_from_N_Euboea_Evia_Island_Greece), [Taye et al. 2017](https://onlinelibrary.wiley.com/doi/epdf/10.1002/ldr.2814), [Wang et al.2016](https://www.researchgate.net/publication/299525502_Integrated_Use_of_GCM_RS_and_GIS_for_the_Assessment_of_Hillslope_and_Gully_Erosion_in_the_Mushi_River_Sub-Catchment_Northeast_China), [Chuenchum et al. 2020](https://www.researchgate.net/publication/338289885_Estimation_of_Soil_Erosion_and_Sediment_Yield_in_the_Lancang-Mekong_River_Using_the_Modified_Revised_Universal_Soil_Loss_Equation_and_GIS_Techniques), [Bouguerra et al. 2017](https://www.researchgate.net/publication/315768765_Mapping_erosion_prone_areas_in_the_Bouhamdane_watershed_Algeria_using_the_Revised_Universal_Soil_Loss_Equation_through_GIS), [Sharma 2012](https://www.researchgate.net/publication/334635031_Effect_of_Cell_Size_of_Digital_Elevation_Model_on_Soil_Loss_prediction_in_Maithon_Catchment), [Teng et al. 2016](https://www.researchgate.net/publication/288059143_Assimilating_satellite_imagery_and_visible-near_infrared_spectroscopy_to_model_and_map_soil_loss_by_water_erosion_in_Australia)).
+
+```{r,warning=FALSE, message=FALSE, results='hide', include = FALSE}
+average_C_df <- data.frame(Land_Cover = c("Urban", "Forest", "Cultivated", "Barren Land", "Burn", "Rangeland", "Road", "Grassland" ), 
+                           c_rozos = c(0.05, 0.001, 0.065, 1, 1, "NA", "NA", 0.1), 
+                           c_taye = c("NA", "NA", "NA", "NA", "NA", 0.04, "NA", "NA"), 
+                           C_wang = c(0,0.055, 0.18, 1, "NA", "NA", 1, 0.1), 
+                           C_chuenchum = c(0.1, 0.037, 0.5, 0.35, "NA", "NA", "NA", 0.17), 
+                           C_BOUGURRA = c("NA", 0.185, 0.55, 1, "NA", 0.4, "NA", "NA"), 
+                           C_Sharma = c(0.002, 0.004, 0.320, 0.100, "NA", "NA", "NA", "NA"), 
+                           c_teng = c("NA", 0.02, 0.07, 0.35, "NA", 0.08, "NA", 0.06))
+```
+
+```{r,warning=FALSE, message=FALSE, echo=FALSE}
+average_C_df %>%
+  kbl(col.names = c("Land cover", "Rozos et al. (2013)", "Taye et al.(2017)", "Wang et al.(2016)", "Chuenchum et al. (2020)", "Bouguerra et al. (2017)", "Sharma (2012)", "Teng et al. (2016)")) %>%
+  kable_classic_2(full_width = F, html_font = "Times New Roman") %>%
+   add_header_above(c(" " = 1, "Crop/Vegetation and Management Factor (C)" = c(7))) %>%
+    column_spec(1, width = "2cm",  border_right = TRUE)
+```
+
+## Factor 5 - The Support Practice Factor (P) {#sec-factor-5 .unnumbered}
+
+P is the support practice factor. It reflects the effects of practices that will reduce the amount and rate of the water runoff and thus reduce the amount of erosion.
+
+The Support Practice factor (P) accounts for the erosion control effectiveness of support practices. The most commonly used supporting cropland practice are cross slope cultivation, contour farming, strip cropping, and terracing. Common P values are presented in **Table 4.** In the absence of any support practice, P assumes unity and equals 1 in the RUSLE. Here we use a P value of 1 to reflect that support practices have not been completed in the area.
+
+**Table 4.** Generalized P values ([Wall et al., 2002](https://sis.agr.gc.ca/cansis/publications/manuals/2002-92/rusle-can.pdf)).
+
+```{r,warning=FALSE, message=FALSE, results='hide', include = FALSE}
+average_p_df <- data.frame(Land_Cover = c("No support practice", "Cross slope farming", "Contour farming (3-8% slope)", "Strip cropping, cross slope (3-8% slope)", "Strip cropping, on contour (3-8% slope)" ), 
+                           p = c(1.00, 0.75, 0.50, 0.38, 0.25))
+```
+
+```{r,warning=FALSE, message=FALSE, echo=FALSE}
+average_p_df %>%
+  kbl(col.names = c("Support Practice", "P-value")) %>%
+  kable_classic_2(full_width = F, html_font = "Times New Roman")
+```
