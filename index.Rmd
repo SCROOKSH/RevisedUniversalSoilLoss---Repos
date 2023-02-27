@@ -3,4 +3,5 @@ title: "The Revised Universal Soil Loss Equation (RUSLE) for post-fire soil eros
 author:
 - name: "Ilythia D. Morley, Natasha Neumann, François-Nicolas Robinne, Sarah Crookshanks, Tom Bradley"
 date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
 ---
