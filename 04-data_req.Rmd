@@ -1,6 +1,6 @@
 # Data Requirements {#sec-Data-Requirements .unnumbered}
 
-Soil erosion using the RUSLE requires several data inputs, which fulfill the data needs of each RUSLE factor (refer to section \@ref(factors)). To model soil erosion, the below data sets **must** be supplied.
+Soil erosion using the RUSLE requires several data inputs, which fulfill the data needs of each RUSLE factor. To model soil erosion, the below data sets **must** be supplied.
 
 1.  **Rainfall Factor (R)** - Annual, monthly, bi-weekly, weekly, or daily rainfall data.
 
