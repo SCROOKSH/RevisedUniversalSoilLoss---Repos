@@ -378,22 +378,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="img/a_1m_MAX.png" alt="" />
 <p class="caption"><strong>Figure 9a</strong>: Specific contributing area (A), in pixels, for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 358,753 pixels and the minimum value is 1 pixel. The resolution is 1m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/fd8_1m_hist.png" alt="" />
 <p class="caption"><strong>Figure 9a (accompanying histogram):</strong> Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. Plot showing limits set to 0 - 5000 pixels. Pixel value is 1m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/a_25m.png" alt="" />
 <p class="caption"><strong>Figure 9b</strong>: Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 118,414 and the minimum value is 25. The resolution is 25m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/fd8_25m_hist.png" alt="" />
 <p class="caption"><strong>Figure 9b (accompanying histogram):</strong> Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. Plot showing limits set to 0 - 5000 pixels. Pixel value is 25m.</p>
 </div>
-<center>
 <p>The Specific Contributing Area raster is edited so that all cells with a value &gt; 100 are replaced with 100, our flow distance threshold. The resulting raster is named A (**Figure 10a and 10b).</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="sec-methods-for-calculating-rusle-factors.html#cb12-1" aria-hidden="true" tabindex="-1"></a>fd8_flow_accumulation_duplicate[fd8_flow_accumulation_duplicate <span class="sc">&gt;</span> <span class="dv">100</span>] <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb12-2"><a href="sec-methods-for-calculating-rusle-factors.html#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -402,22 +398,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="img/a_1m_100m_cap.png" alt="" />
 <p class="caption"><strong>Figure 10a</strong>: Specific contributing area (A) with a 100m threshold for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 100 and the minimum value is 1. The resolution is 1m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/A_1m_hist.png" alt="" />
 <p class="caption"><strong>Figure 10a (accompanying histogram)</strong>: Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds with a 100m threshold. Plot showing limits set to 0 - 100 pixels. Pixel value is 1m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/a_25m_100m_cap.png" alt="" />
 <p class="caption"><strong>Figure 10b</strong>: Specific contributing area (A) with a 100m threshold for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 100 and the minimum value is 25. The resolution is 25m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/A_25m_hist_N.png" alt="" />
 <p class="caption"><strong>Figure 10b (accompanying histogram):</strong> Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds with a 100m threshold. Plot showing limits set to 0 - 100. Pixel value is 25m.</p>
 </div>
-<center>
 </div>
 <div id="sec-step-7-ls" class="section level4 unnumbered hasAnchor">
 <h4>Step 7: Length (L) Raster<a href="sec-methods-for-calculating-rusle-factors.html#sec-step-7-ls" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -427,22 +419,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="img/l_1m.png" alt="" />
 <p class="caption"><strong>Figure 11a</strong>: Length (L) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 4.82 and the minimum value is 0.45. The resolution is 1m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/L_1m_hist.png" alt="" />
 <p class="caption"><strong>Figure 11a (accompanying histogram):</strong> Length factor (L) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/l_25m.png" alt="" />
 <p class="caption"><strong>Figure 11b</strong>: Length (L) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 1.1 and the minimum value is 0.85. The resolution is 25m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/L_25m_hist.png" alt="" />
 <p class="caption"><strong>Figure 11a (accompanying histogram):</strong> Length factor (L) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.</p>
 </div>
-<center>
 </div>
 <div id="sec-step-8-ls" class="section level4 unnumbered hasAnchor">
 <h4>Step 8: Slope (S) Raster<a href="sec-methods-for-calculating-rusle-factors.html#sec-step-8-ls" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -453,22 +441,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="img/S_1m.png" alt="" />
 <p class="caption"><strong>Figure 12a</strong>: Slope (S) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 36.2 and the minimum value is 0. The resolution is 1m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/S_1m_hist.png" alt="" />
 <p class="caption"><strong>Figure 12a (accompanying histogram)</strong>: Slope factor (S) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/S_25m.png" alt="" />
 <p class="caption"><strong>Figure 12b</strong>: Slope (S) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 44.26 and the minimum value is 0. The resolution is 25m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/S_25m_hist.png" alt="" />
 <p class="caption"><strong>Figure 13b (accompanying histogram):</strong> Slope factor (S) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.</p>
 </div>
-<center>
 </div>
 <div id="sec-step-9-ls" class="section level4 unnumbered hasAnchor">
 <h4>Step 9: LS Factor<a href="sec-methods-for-calculating-rusle-factors.html#sec-step-9-ls" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -478,22 +462,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="img/LS_1m.png" alt="" />
 <p class="caption"><strong>Figure 14a</strong>: Slope Length (LS) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 85 and the minimum value is 0. The resolution is 1m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/LS_1m_hist.png" alt="" />
 <p class="caption"><strong>Figure 14a (accompanying histogram)</strong>: Slope Length factor (LS) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/LS_25m.png" alt="" />
 <p class="caption"><strong>Figure 14b</strong>: Slope Length (LS) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 43 and the minimum value is 0. The resolution is 25m.</p>
 </div>
-<center>
 <div class="figure">
 <img src="img/LS_25m_hist.png" alt="" />
 <p class="caption"><strong>Figure 14b (accompanying histogram):</strong> Slope Length factor (LS) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m</p>
 </div>
-<center>
 </div>
 </div>
 </div>

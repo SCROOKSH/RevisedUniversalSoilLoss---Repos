@@ -198,11 +198,11 @@ wbt_fd8_flow_accumulation(
 
 ![**Figure 9a**: Specific contributing area (A), in pixels, for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 358,753 pixels and the minimum value is 1 pixel. The resolution is 1m.](img/a_1m_MAX.png)
 
-<center>![**Figure 9a (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. Plot showing limits set to 0 - 5000 pixels. Pixel value is 1m.](img/fd8_1m_hist.png)<center>
+![**Figure 9a (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. Plot showing limits set to 0 - 5000 pixels. Pixel value is 1m.](img/fd8_1m_hist.png)
 
 ![**Figure 9b**: Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 118,414 and the minimum value is 25. The resolution is 25m.](img/a_25m.png)
 
-<center>![**Figure 9b (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. Plot showing limits set to 0 - 5000 pixels. Pixel value is 25m.](img/FD8_25M_hist.png)<center>
+![**Figure 9b (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. Plot showing limits set to 0 - 5000 pixels. Pixel value is 25m.](img/FD8_25M_hist.png)
 
 The Specific Contributing Area raster is edited so that all cells with a value \> 100 are replaced with 100, our flow distance threshold. The resulting raster is named A (**Figure 10a and 10b).
 
@@ -214,11 +214,11 @@ A <- fd8_flow_accumulation_duplicate
 
 ![**Figure 10a**: Specific contributing area (A) with a 100m threshold for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 100 and the minimum value is 1. The resolution is 1m.](img/a_1m_100m_cap.png)
 
-<center>![**Figure 10a (accompanying histogram)**: Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds with a 100m threshold. Plot showing limits set to 0 - 100 pixels. Pixel value is 1m.](img/A_1m_hist.png)<center>
+![**Figure 10a (accompanying histogram)**: Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds with a 100m threshold. Plot showing limits set to 0 - 100 pixels. Pixel value is 1m.](img/A_1m_hist.png)
 
 ![**Figure 10b**: Specific contributing area (A) with a 100m threshold for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 100 and the minimum value is 25. The resolution is 25m.](img/a_25m_100m_cap.png)
 
-<center>![**Figure 10b (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds with a 100m threshold. Plot showing limits set to 0 - 100. Pixel value is 25m.](img/A_25m_hist_N.png)<center>
+![**Figure 10b (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds with a 100m threshold. Plot showing limits set to 0 - 100. Pixel value is 25m.](img/A_25m_hist_N.png)
 
 #### Step 7: Length (L) Raster {#sec-step-7-ls .unnumbered}
 
@@ -230,11 +230,11 @@ L = (((A +(D**2))**(m+1))-(A**(m+1)))/((D**(m+2))*(x**m)*(22.13**m))
 
 ![**Figure 11a**: Length (L) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 4.82 and the minimum value is 0.45. The resolution is 1m.](img/l_1m.png)
 
-<center>![**Figure 11a (accompanying histogram):** Length factor (L) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/L_1m_hist.png)<center>
+![**Figure 11a (accompanying histogram):** Length factor (L) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/L_1m_hist.png)
 
 ![**Figure 11b**: Length (L) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 1.1 and the minimum value is 0.85. The resolution is 25m.](img/l_25m.png)
 
-<center>![**Figure 11a (accompanying histogram):** Length factor (L) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.](img/L_25m_hist.png)<center>
+![**Figure 11a (accompanying histogram):** Length factor (L) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.](img/L_25m_hist.png)
 
 #### Step 8: Slope (S) Raster {#sec-step-8-ls .unnumbered}
 
@@ -247,11 +247,11 @@ S[S < 0] <- 0
 
 ![**Figure 12a**: Slope (S) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 36.2 and the minimum value is 0. The resolution is 1m.](img/S_1m.png)
 
-<center>![**Figure 12a (accompanying histogram)**: Slope factor (S) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/S_1m_hist.png)<center>
+![**Figure 12a (accompanying histogram)**: Slope factor (S) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/S_1m_hist.png)
 
 ![**Figure 12b**: Slope (S) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 44.26 and the minimum value is 0. The resolution is 25m.](img/S_25m.png)
 
-<center>![**Figure 13b (accompanying histogram):** Slope factor (S) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.](img/S_25m_hist.png)<center>
+![**Figure 13b (accompanying histogram):** Slope factor (S) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.](img/S_25m_hist.png)
 
 #### Step 9: LS Factor {#sec-step-9-ls .unnumbered}
 
@@ -263,11 +263,11 @@ LS = L*S
 
 ![**Figure 14a**: Slope Length (LS) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 85 and the minimum value is 0. The resolution is 1m.](img/LS_1m.png)
 
-<center>![**Figure 14a (accompanying histogram)**: Slope Length factor (LS) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/LS_1m_hist.png)<center>
+![**Figure 14a (accompanying histogram)**: Slope Length factor (LS) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/LS_1m_hist.png)
 
 ![**Figure 14b**: Slope Length (LS) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 43 and the minimum value is 0. The resolution is 25m.](img/LS_25m.png)
 
-<center>![**Figure 14b (accompanying histogram):** Slope Length factor (LS) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m](img/LS_25m_hist.png)<center>
+![**Figure 14b (accompanying histogram):** Slope Length factor (LS) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m](img/LS_25m_hist.png)
 
 ## Factor 3 - Soil Erodibility (K) {#sec-factor-3 .unnumbered}
 
