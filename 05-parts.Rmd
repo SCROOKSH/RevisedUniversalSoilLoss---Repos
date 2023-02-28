@@ -29,7 +29,7 @@ For each RUSLE factor (R, LS, K, C), we outline the input data required to calcu
 
 This application of the RUSLE uses data for the Trozzo and Winlaw Creek watersheds which are located in the West Kootenay region of southeastern British Columbia (**Figure 1**).
 
-![](img/studyarea.png){width="100%"}</center>
+![](img/studyarea.png){width="100%"}
 
 **Figure 1** The Study area in the West Kootenay region of southeastern British Columbia, showing the two watersheds in the study area: Winlaw watershed (\~41km\^2), and the Trozzo Creek Watershed (\~28km\^2). Streams in the study area are shown in blue and the inset map situates the study area in the province of British Columbia.
 
@@ -76,7 +76,7 @@ R_factor <- raster("data/4/R/R_factor.tif",  res = 1)
 R_factor <- crop(R_factor, crop_extent)
 ```
 
-![](img/r_factor.png){width="100%"}</center>
+![](img/r_factor.png){width="100%"}
 
 **Figure 2**: Rainfall factor (R) values, measured in MJ mm ha-1 h-1 yr-1, for the Winlaw and Trozzo Creek watersheds. The highest R values (max = 622) in the study area are located in the southwest, and the lowest values (min = 484) are located in the northeast. Data sourced from the [Rainfall erosivity dataset (2017)](https://esdac.jrc.ec.europa.eu/content/global-rainfall-erosivity#tabs-0-description=1).
 
@@ -92,9 +92,9 @@ The only required input for calculating the LS factor is a Digital elevation mod
 dem <- raster("DTM/dem.tif")
 ```
 
-![**Figure 3a**: Digital Elevation Model (DEM) in meters (m), for the Winlaw and Trozzo Creek watersheds. The maximum elevation in the study area is 1,816 m and the minimum is 678 m. The DEM resolution is 1m.](img/dem_1m.png}</center>
+![**Figure 3a**: Digital Elevation Model (DEM) in meters (m), for the Winlaw and Trozzo Creek watersheds. The maximum elevation in the study area is 1,816 m and the minimum is 678 m. The DEM resolution is 1m.](img/dem_1m.png)
 
-![**Figure 3b**: Digital Elevation Model (DEM) in meters (m), for the Winlaw and Trozzo Creek watersheds. The maximum elevation in the study area is 1,816 m and the minimum is 678 m. The DEM resolution is 25m.](img/dem_25m.png}</center>
+![**Figure 3b**: Digital Elevation Model (DEM) in meters (m), for the Winlaw and Trozzo Creek watersheds. The maximum elevation in the study area is 1,816 m and the minimum is 678 m. The DEM resolution is 25m.](img/dem_25m.png)
 
 ### Calculating the LS Factor: {#sec-calculating-the-ls-factor .unnumbered}
 
@@ -114,9 +114,9 @@ wbt_slope(
 slope_degrees <- raster("SLOPE/slope_degrees.tif")
 ```
 
-![**Figure 4a**: Slope raster in degrees, for the Winlaw and Trozzo Creek watersheds. The maximum slope in the study area is 90 degrees and the minimum is 0 degrees. The DEM resolution is 1m.](img/slope_degrees_1m.png}</center>
+![**Figure 4a**: Slope raster in degrees, for the Winlaw and Trozzo Creek watersheds. The maximum slope in the study area is 90 degrees and the minimum is 0 degrees. The DEM resolution is 1m.](img/slope_degrees_1m.png)
 
-![**Figure 4b**: Slope raster in degrees, for the Winlaw and Trozzo Creek watersheds. The maximum slope in the study area is 90 degrees and the minimum is 0 degrees. The DEM resolution is 25m.](img/slope_degrees_25m.png}</center>
+![**Figure 4b**: Slope raster in degrees, for the Winlaw and Trozzo Creek watersheds. The maximum slope in the study area is 90 degrees and the minimum is 0 degrees. The DEM resolution is 25m.](img/slope_degrees_25m.png)
 
 The slope is also produced in percent using the following code:
 
@@ -139,9 +139,9 @@ Next, Beta is calculated using the 1m and 25m resolution `slope_degrees` rasters
 beta = ((sin(θ))/(0.0896))/((0.56 + 3 * (sin(θ))**0.8))
 ```
 
-![**Figure 5a**: Beta for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 3.14m and the minimum value is 0.02. The beta resolution is 1m.](img/beta_1m.png}</center>
+![**Figure 5a**: Beta for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 3.14m and the minimum value is 0.02. The beta resolution is 1m.](img/beta_1m.png)
 
-![**Figure 5b**: Beta for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 2.98m and the minimum value is 0. The beta resolution is 25m.](img/beta_25m.png}</center>
+![**Figure 5b**: Beta for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 2.98m and the minimum value is 0. The beta resolution is 25m.](img/beta_25m.png)
 
 #### Step 3: Ratio of Rill to Interrill Erosivity (m) {#sec-step-3-ls .unnumbered}
 
@@ -151,9 +151,9 @@ The output of Step 2, `beta`, is used to calculate the ration of rill to interri
 m = (beta)/(beta + 1) plot(m)
 ```
 
-![**Figure 6a**: Ratio of Rill to Interrill Erosivity (m) for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 0.76m and the minimum value is 0.02. The resolution is 1m.](img/m_1m.png}</center>
+![**Figure 6a**: Ratio of Rill to Interrill Erosivity (m) for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 0.76m and the minimum value is 0.02. The resolution is 1m.](img/m_1m.png)
 
-![**Figure 6b**: Ratio of Rill to Interrill Erosivity (m) for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 0.76m and the minimum value is 0.02. The resolution is 25m.](img/m_25m.png}</center>
+![**Figure 6b**: Ratio of Rill to Interrill Erosivity (m) for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 0.76m and the minimum value is 0.02. The resolution is 25m.](img/m_25m.png)
 
 #### Step 4: Aspect Raster {#sec-step-4-ls .unnumbered}
 
@@ -164,9 +164,9 @@ aspect_radians <-  terrain(dem, opt='aspect', unit='radians', neighbors=8,
                            filename= "ASPECT/aspect_radians.tif")
 ```
 
-![**Figure 7a**: Aspect, in radians, for the Winlaw and Trozzo Creek watersheds. The maximum aspect value in the study area is 6.28 and the minimum value is 0 . The resolution is 1m.](img/aspect_1m.png}</center>
+![**Figure 7a**: Aspect, in radians, for the Winlaw and Trozzo Creek watersheds. The maximum aspect value in the study area is 6.28 and the minimum value is 0 . The resolution is 1m.](img/aspect_1m.png)
 
-![**Figure 7b**: Aspect, in radians, for the Winlaw and Trozzo Creek watersheds. The maximum aspect value in the study area is 6.28 and the minimum value is 0. The resolution is 25m.](img/aspect_25m.png}</center>
+![**Figure 7b**: Aspect, in radians, for the Winlaw and Trozzo Creek watersheds. The maximum aspect value in the study area is 6.28 and the minimum value is 0. The resolution is 25m.](img/aspect_25m.png)
 
 #### Step 5: Contour Width Factor (X) {#sec-step-5-ls .unnumbered}
 
@@ -196,13 +196,13 @@ wbt_fd8_flow_accumulation(
     )
 ```
 
-![**Figure 9a**: Specific contributing area (A), in pixels, for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 358,753 pixels and the minimum value is 1 pixel. The resolution is 1m.](img/a_1m_MAX.png}</center>
+![**Figure 9a**: Specific contributing area (A), in pixels, for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 358,753 pixels and the minimum value is 1 pixel. The resolution is 1m.](img/a_1m_MAX.png)
 
-![**Figure 9a (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. Plot showing limits set to 0 - 5000 pixels. Pixel value is 1m.](img/fd8_1m_hist.png}</center>
+![**Figure 9a (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. Plot showing limits set to 0 - 5000 pixels. Pixel value is 1m.](img/fd8_1m_hist.png)
 
-![**Figure 9b**: Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 118,414 and the minimum value is 25. The resolution is 25m.](img/a_25m.png}</center>
+![**Figure 9b**: Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 118,414 and the minimum value is 25. The resolution is 25m.](img/a_25m.png)
 
-![**Figure 9b (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. Plot showing limits set to 0 - 5000 pixels. Pixel value is 25m.](img/FD8_25M_hist.png}</center>
+![**Figure 9b (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. Plot showing limits set to 0 - 5000 pixels. Pixel value is 25m.](img/FD8_25M_hist.png)
 
 The Specific Contributing Area raster is edited so that all cells with a value \> 100 are replaced with 100, our flow distance threshold. The resulting raster is named A (**Figure 10a and 10b).
 
@@ -212,13 +212,13 @@ fd8_flow_accumulation_duplicate[fd8_flow_accumulation_duplicate > 100] <- 100
 A <- fd8_flow_accumulation_duplicate
 ```
 
-![**Figure 10a**: Specific contributing area (A) with a 100m threshold for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 100 and the minimum value is 1. The resolution is 1m.](img/a_1m_100m_cap.png}</center>
+![**Figure 10a**: Specific contributing area (A) with a 100m threshold for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 100 and the minimum value is 1. The resolution is 1m.](img/a_1m_100m_cap.png)
 
-![**Figure 10a (accompanying histogram)**: Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds with a 100m threshold. Plot showing limits set to 0 - 100 pixels. Pixel value is 1m.](img/A_1m_hist.png}</center>
+![**Figure 10a (accompanying histogram)**: Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds with a 100m threshold. Plot showing limits set to 0 - 100 pixels. Pixel value is 1m.](img/A_1m_hist.png)
 
-![**Figure 10b**: Specific contributing area (A) with a 100m threshold for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 100 and the minimum value is 25. The resolution is 25m.](img/a_25m_100m_cap.png}</center>
+![**Figure 10b**: Specific contributing area (A) with a 100m threshold for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 100 and the minimum value is 25. The resolution is 25m.](img/a_25m_100m_cap.png)
 
-![**Figure 10b (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds with a 100m threshold. Plot showing limits set to 0 - 100. Pixel value is 25m.](img/A_25m_hist_N.png}</center>
+![**Figure 10b (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds with a 100m threshold. Plot showing limits set to 0 - 100. Pixel value is 25m.](img/A_25m_hist_N.png)
 
 #### Step 7: Length (L) Raster {#sec-step-7-ls .unnumbered}
 
@@ -228,13 +228,13 @@ The length (L) component of the LS factor is calculated based on the equation pr
 L = (((A +(D**2))**(m+1))-(A**(m+1)))/((D**(m+2))*(x**m)*(22.13**m))
 ```
 
-![**Figure 11a**: Length (L) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 4.82 and the minimum value is 0.45. The resolution is 1m.](img/l_1m.png}</center>
+![**Figure 11a**: Length (L) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 4.82 and the minimum value is 0.45. The resolution is 1m.](img/l_1m.png)
 
-![**Figure 11a (accompanying histogram):** Length factor (L) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/L_1m_hist.png}</center>
+![**Figure 11a (accompanying histogram):** Length factor (L) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/L_1m_hist.png)
 
-![**Figure 11b**: Length (L) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 1.1 and the minimum value is 0.85. The resolution is 25m.](img/l_25m.png}</center>
+![**Figure 11b**: Length (L) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 1.1 and the minimum value is 0.85. The resolution is 25m.](img/l_25m.png)
 
-![**Figure 11a (accompanying histogram):** Length factor (L) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.](img/L_25m_hist.png}</center>
+![**Figure 11a (accompanying histogram):** Length factor (L) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.](img/L_25m_hist.png)
 
 #### Step 8: Slope (S) Raster {#sec-step-8-ls .unnumbered}
 
@@ -245,13 +245,13 @@ S = (0.0005*(slope_percent**2)) + (0.1795*slope_percent) - (0.4418)
 S[S < 0] <- 0
 ```
 
-![**Figure 12a**: Slope (S) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 36.2 and the minimum value is 0. The resolution is 1m.](img/S_1m.png}</center>
+![**Figure 12a**: Slope (S) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 36.2 and the minimum value is 0. The resolution is 1m.](img/S_1m.png)
 
-![**Figure 12a (accompanying histogram)**: Slope factor (S) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/S_1m_hist.png}</center>
+![**Figure 12a (accompanying histogram)**: Slope factor (S) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/S_1m_hist.png)
 
-![**Figure 12b**: Slope (S) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 44.26 and the minimum value is 0. The resolution is 25m.](img/S_25m.png}</center>
+![**Figure 12b**: Slope (S) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 44.26 and the minimum value is 0. The resolution is 25m.](img/S_25m.png)
 
-![**Figure 13b (accompanying histogram):** Slope factor (S) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.](img/S_25m_hist.png}</center>
+![**Figure 13b (accompanying histogram):** Slope factor (S) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.](img/S_25m_hist.png)
 
 #### Step 9: LS Factor {#sec-step-9-ls .unnumbered}
 
@@ -263,11 +263,11 @@ LS = L*S
 
 ![**Figure 14a**: Slope Length (LS) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 85 and the minimum value is 0. The resolution is 1m.](img/LS_1m.png)
 
-![**Figure 14a (accompanying histogram)**: Slope Length factor (LS) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/LS_1m_hist.png}</center>
+![**Figure 14a (accompanying histogram)**: Slope Length factor (LS) for the Winlaw and Trozzo Creek watersheds. Pixel value is 1m.](img/LS_1m_hist.png)
 
-![**Figure 14b**: Slope Length (LS) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 43 and the minimum value is 0. The resolution is 25m.](img/LS_25m.png}</center>
+![**Figure 14b**: Slope Length (LS) factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 43 and the minimum value is 0. The resolution is 25m.](img/LS_25m.png)
 
-![**Figure 14b (accompanying histogram):** Slope Length factor (LS) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m](img/LS_25m_hist.png}</center>
+![**Figure 14b (accompanying histogram):** Slope Length factor (LS) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m](img/LS_25m_hist.png)
 
 ## Factor 3 - Soil Erodibility (K) {#sec-factor-3 .unnumbered}
 
@@ -319,7 +319,7 @@ K_factor <- rasterize(K_values, R_factor, field = "Average_K",
                       fun = "max", background = 0.001)
 ```
 
-![**Figure 16**: Soil erodibility factor (K) values measured the percentage erodiibilty of soil textures for the Winlaw and Trozzo Creek watershed study areas. The highest K values (max = 0.050) are associated with the Silty Loam soil texture, and the lowest K values (min = 0.005) are associated with the Loamy Sand texture. Data sourced from the British Columbia Soil Survey.](img/k_factor.png}</center>
+![**Figure 16**: Soil erodibility factor (K) values measured the percentage erodiibilty of soil textures for the Winlaw and Trozzo Creek watershed study areas. The highest K values (max = 0.050) are associated with the Silty Loam soil texture, and the lowest K values (min = 0.005) are associated with the Loamy Sand texture. Data sourced from the British Columbia Soil Survey.](img/k_factor.png)
 
 **Figure 16**: Soil erodibility factor (K) values measured the percentage erodiibilty of soil textures for the Winlaw and Trozzo Creek watershed study areas. The highest K values (max = 0.050) are associated with the Silty Loam soil texture, and the lowest K values (min = 0.005) are associated with the Loamy Sand texture. Data sourced from the [British Columbia Soil Survey](https://catalogue.data.gov.bc.ca/dataset/20150a67-5a2d-425f-8216-ff0f97f68df9).
 
@@ -331,13 +331,13 @@ There are no current, or recorded soil erosion management practices being implem
 
 1.  Vegetation cover, specified by the [Vegetation Resource Inventory(VRI)](https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-inventory) (**Figure 17**)) .
 
-![](img/c_factor_input_vri.png}</center>
+![](img/c_factor_input_vri.png)
 
 **Figure 17** Crop/Vegetation and Management Factor (C) Vegetation Resource Inventory (VRI) data for for the study area located in West Kootenay region of southeastern British Columbia. Data sourced from the [Vegetation Resource Inventory (VRI)](https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-inventory).
 
 2.  Fire Burn Severity, specified by provincial [Burn Severity Mapping](https://catalogue.data.gov.bc.ca/dataset/fire-burn-severity-historical) completed using Landsat or Satellite imagery (**Figure 18**).
 
-![](img/c_factor_input_bs.png}</center>
+![](img/c_factor_input_bs.png)
 
 **Figure 18**: Crop/Vegetation and Management Factor (C) Burn Severity Mapping data for for the study area located in West Kootenay region of southeastern British Columbia. Data sourced from BC [Burn Severity Mapping](https://catalogue.data.gov.bc.ca/dataset/fire-burn-severity-historical) completed using Landsat or Satellite imagery.
 
@@ -441,10 +441,10 @@ C_Factor_Pre_Fire <- mosaic(vri, roads, fun = "max", tolerance = 0.2)
 
 This project is concerned with soil erosion modeling in a region which experienced a large fire. To that end, we produce two C Factor rasters, one pre-burn (**Figure 20**) and one post-burn (**Figure 21**).
 
-![](img/c_factor_pre_burn_roads10m.png)}</center>
+![](img/c_factor_pre_burn_roads10m.png)}
 
 **Figure 20:** Pre-burn Crop/Vegetation and Management Factor (C) for the Winlaw and Trozzo Creek watershed study areas.
 
-![](img/c_factor_post_burn_roads10m.png}</center>
+![](img/c_factor_post_burn_roads10m.png)
 
 **Figure 21**: Post-burn Crop/Vegetation and Management Factor (C) for the Winlaw and Trozzo Creek watershed study areas.
