@@ -33,9 +33,9 @@ This application of the RUSLE uses data for the Trozzo and Winlaw Creek watershe
 
 **Figure 1** The Study area in the West Kootenay region of southeastern British Columbia, showing the two watersheds in the study area: Winlaw watershed (\~41km\^2), and the Trozzo Creek Watershed (\~28km\^2). Streams in the study area are shown in blue and the inset map situates the study area in the province of British Columbia.
 
-## RStudio Preparation: {#sec-required-r-packages .unnumbered}
+## RStudio Preparation: {#sec-rstudio-preparation .unnumbered}
 
-### Required R Packages: {#packages .unnumbered}
+### Required R Packages: {#sec-required-r-packages .unnumbered}
 
 The method for applying the RUSLE is entirely open source and is integrated within the geospatial R ecosystem (i.e. `raster/terra/stars and sp/sf)`. This guide has been written to help both the RUSLE novice, as well as the seasoned geospatial analyst. Key packages used in this demonstration are:
 
@@ -53,7 +53,7 @@ library(kableExtra)
 library(readxl)
 ```
 
-### Setting the Coordinate Reference System: {#sec-rstudio-preparation .unnumbered}
+### Setting the Coordinate Reference System: {#sec-setting-the-coordinate-reference-system .unnumbered}
 
 All input raster and vector surfaces must have the same Coordinate Reference System (CRS):
 
@@ -61,9 +61,9 @@ All input raster and vector surfaces must have the same Coordinate Reference Sys
 projection <- crs("+proj=utm +zone=11 +ellps=GRS80 +units=m +no_defs")
 ```
 
-## Factor 1 - Rainfall Erosivity (R) {#sec-factor-1-method .unnumbered}
+## Factor 1 - Rainfall Erosivity (R) {#sec-factor-1---rainfall-erosivity-(r .unnumbered}
 
-### Input Data: {#sec-R-input-data .unnumbered}
+### Input Data: {#sec-input-data .unnumbered}
 
 Data for the R factor is sourced from the [Rainfall erosivity dataset (2017)](https://esdac.jrc.ec.europa.eu/content/global-rainfall-erosivity#tabs-0-description=1). The provided R-factor map at resolutions of 30 arc-sec (\~1 km at the Equator). This data offers complete global rainfall erosivity data based on 3625 precipitation stations and around 60,000 years of rainfall records at high temporal resolution (1 to 60 minutes). Rainfall erosivity values (MJ mm ha-1 h-1 yr-1) for the study area range between 483.7963 and 622.4443 MJ mm ha-1 h-1 yr-1. These values are consistent with those reported for British Columbia. For example, according to a report by [Agriculture and Agri-Food Canada](https://sis.agr.gc.ca/cansis/publications/manuals/2002-92/rusle-can.pdf), R values in Vancouver, B.C. are approximately 378 MJ mm ha-1 h-1. Marginally lower R values in the study area are explained by the geographic location of the study area, being inland from the west coast temperate zone.
 
@@ -80,11 +80,11 @@ R_factor <- crop(R_factor, crop_extent)
 
 **Figure 2**: Rainfall factor (R) values, measured in MJ mm ha-1 h-1 yr-1, for the Winlaw and Trozzo Creek watersheds. The highest R values (max = 622) in the study area are located in the southwest, and the lowest values (min = 484) are located in the northeast. Data sourced from the [Rainfall erosivity dataset (2017)](https://esdac.jrc.ec.europa.eu/content/global-rainfall-erosivity#tabs-0-description=1).
 
-## Factor 2 - Slope Length (LS) {#sec-factor-2 .unnumbered}
+## Factor 2 - Slope Length (LS) {#sec-factor-2---slope-length-(ls .unnumbered}
 
 In this study, the LS factor is calculated based [Desmet and Gover., 1996](https://www.researchgate.net/publication/233425999_A_GIS_procedure_for_automatically_calculating_the_USLE_LS_factor_on_topographically_complex_landscape_units). Following [Desmet and Gover., 1996](https://www.researchgate.net/publication/233425999_A_GIS_procedure_for_automatically_calculating_the_USLE_LS_factor_on_topographically_complex_landscape_units) several sub-factors are calculated and used to inform the production of a final LS raster surface.
 
-### Input Data: {#sec-ls-input-data .unnumbered}
+### Input Data: {#sec-input-data-ls .unnumbered}
 
 The only required input for calculating the LS factor is a Digital elevation model (DEM). Here, we test the method using a 1m resolution DEM derived from LiDAR data (**Figure 3a**) and a 25m resolution DEM (**Figure 3b**).
 
@@ -100,7 +100,7 @@ dem <- raster("DTM/dem.tif")
 
 Calculating the LS factor involves nine steps:
 
-#### Step 1: Slope Raster {#sec-step-1-ls .unnumbered}
+#### Step 1: Slope Raster {#sec-step-1-slope-raster .unnumbered}
 
 The first step in calumniating the LS factor is the production of twp slope raster's using the 1m DEM and 25m DEM (see **Figure 4a and 4b**)).
 
@@ -130,7 +130,7 @@ wbt_slope(
 slope_percent <- raster("SLOPE/slope_percent.tif")
 ```
 
-#### Step 2: Beta {#sec-step-2-ls .unnumbered}
+#### Step 2: Beta {#sec-step-2-beta .unnumbered}
 
 Next, Beta is calculated using the 1m and 25m resolution `slope_degrees` rasters generated in Step 1 and the formula proposed by [Desmet and Gover., 1996](https://www.researchgate.net/publication/233425999_A_GIS_procedure_for_automatically_calculating_the_USLE_LS_factor_on_topographically_complex_landscape_units) (**Figure 5a and 5b**).
 
@@ -143,7 +143,7 @@ beta = ((sin(θ))/(0.0896))/((0.56 + 3 * (sin(θ))**0.8))
 
 ![**Figure 5b**: Beta for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 2.98m and the minimum value is 0. The beta resolution is 25m.](img/beta_25m.png)
 
-#### Step 3: Ratio of Rill to Interrill Erosivity (m) {#sec-step-3-ls .unnumbered}
+#### Step 3: Ratio of Rill to Interrill Erosivity (m) {#sec-step-3-ratio-of-rill-to-interrill-erosivity .unnumbered}
 
 The output of Step 2, `beta`, is used to calculate the ration of rill to interrill erosion, called `m`, for each grid cell (**Figure 6a and 6b**).
 
@@ -155,7 +155,7 @@ m = (beta)/(beta + 1) plot(m)
 
 ![**Figure 6b**: Ratio of Rill to Interrill Erosivity (m) for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 0.76m and the minimum value is 0.02. The resolution is 25m.](img/m_25m.png)
 
-#### Step 4: Aspect Raster {#sec-step-4-ls .unnumbered}
+#### Step 4: Aspect Raster {#sec-step-4-aspect-raster .unnumbered}
 
 Next, the `terrain` function from the `raster` package and the `dem` (1m and 25m) are used to produce an aspect, in radians, of the study area (**Figure 7a and 7b**).
 
@@ -168,7 +168,7 @@ aspect_radians <-  terrain(dem, opt='aspect', unit='radians', neighbors=8,
 
 ![**Figure 7b**: Aspect, in radians, for the Winlaw and Trozzo Creek watersheds. The maximum aspect value in the study area is 6.28 and the minimum value is 0. The resolution is 25m.](img/aspect_25m.png)
 
-#### Step 5: Contour Width Factor (X) {#sec-step-5-ls .unnumbered}
+#### Step 5: Contour Width Factor (X) {#sec-step-5-contour-width-factor .unnumbered}
 
 Using the `aspect_radians` raster produced in Step 4 a contour width factor, named `X` , is calculated based on the method proposed by [Desmet and Gover., 1996](https://www.researchgate.net/publication/233425999_A_GIS_procedure_for_automatically_calculating_the_USLE_LS_factor_on_topographically_complex_landscape_units) (**Figure 8a and 8b**).
 
@@ -182,7 +182,7 @@ X = abs(sin(aspect_radians)) + abs(cos(aspect_radians))
 
 ![**Figure 8b**: Contour width factor for the Winlaw and Trozzo Creek watersheds. The maximum value in the study area is 1.41 and the minimum value is 1. The resolution is 25m.](img/x_25m.png)
 
-#### Step 6: Specific Contributing Area {#sec-step-6-ls .unnumbered}
+#### Step 6: Specific Contributing Area {#sec-step-6-specific-contributing-area .unnumbered}
 
 Step 6 involves the production of a Specific Contributing Area raster using the `WhiteboxTools` function `wbt_fd8_flow_accumulation` (**Figure 9a and 9b**)).
 
@@ -204,7 +204,7 @@ wbt_fd8_flow_accumulation(
 
 ![**Figure 9b (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds. Plot showing limits set to 0 - 5000 pixels. Pixel value is 25m.](img/FD8_25M_hist.png)
 
-The Specific Contributing Area raster is edited so that all cells with a value \> 100 are replaced with 100, our flow distance threshold. The resulting raster is named A (**Figure 10a and 10b).
+The Specific Contributing Area raster is edited so that all cells with a value \> 100 are replaced with 100, our flow distance threshold. The resulting raster is named A (\*\*Figure 10a and 10b).
 
 ``` r
 fd8_flow_accumulation_duplicate[fd8_flow_accumulation_duplicate > 100] <- 100
@@ -220,7 +220,7 @@ A <- fd8_flow_accumulation_duplicate
 
 ![**Figure 10b (accompanying histogram):** Specific contributing area (A) for the Winlaw and Trozzo Creek watersheds with a 100m threshold. Plot showing limits set to 0 - 100. Pixel value is 25m.](img/A_25m_hist_N.png)
 
-#### Step 7: Length (L) Raster {#sec-step-7-ls .unnumbered}
+#### Step 7: Length (L) Raster {#sec-step-7-length .unnumbered}
 
 The length (L) component of the LS factor is calculated based on the equation proposed by [Desmet and Gover., 1996](https://www.researchgate.net/publication/233425999_A_GIS_procedure_for_automatically_calculating_the_USLE_LS_factor_on_topographically_complex_landscape_units) and uses the `m,` `X`, and `A` sub-factors (**Figure 11a and 11b**)).
 
@@ -236,7 +236,7 @@ L = (((A +(D**2))**(m+1))-(A**(m+1)))/((D**(m+2))*(x**m)*(22.13**m))
 
 ![**Figure 11a (accompanying histogram):** Length factor (L) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.](img/L_25m_hist.png)
 
-#### Step 8: Slope (S) Raster {#sec-step-8-ls .unnumbered}
+#### Step 8: Slope (S) Raster {#sec-step-8-slope .unnumbered}
 
 The slope (S) component of the LS factor is calculated based on the equation proposed by [Schmidt et al. 2019](https://www.tandfonline.com/doi/full/10.1080/17445647.2019.1585980) and uses the `slope_percent` raster produced in Step 1 (**Figure 12a and 12b**).
 
@@ -253,7 +253,7 @@ S[S < 0] <- 0
 
 ![**Figure 13b (accompanying histogram):** Slope factor (S) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m.](img/S_25m_hist.png)
 
-#### Step 9: LS Factor {#sec-step-9-ls .unnumbered}
+#### Step 9: LS Factor {#sec-step-9-ls-factor .unnumbered}
 
 The final step for calculating the LS factor is the combination of the `L` and `S` raster's produced in Steps 7 and 9 respectively (**Figure 14a and 14b**)).
 
@@ -269,15 +269,15 @@ LS = L*S
 
 ![**Figure 14b (accompanying histogram):** Slope Length factor (LS) for the Winlaw and Trozzo Creek watersheds. Pixel value is 25m](img/LS_25m_hist.png)
 
-## Factor 3 - Soil Erodibility (K) {#sec-factor-3 .unnumbered}
+## Factor 3 - Soil Erodibility (K) {#sec-factor-3---soil-erodibility .unnumbered}
 
-### Input Data: {#sec-input-data-ls .unnumbered}
+### Input Data: {#sec-input-data-k .unnumbered}
 
 K factor (soil erodibility) values are based on values provided by the [Ontario Ministry of Agriculture, Food and Rural Affairs](http://www.omafra.gov.on.ca/english/engineer/facts/12-051.htm) and soil data from the [British Columbia Soil Survey](https://catalogue.data.gov.bc.ca/dataset/20150a67-5a2d-425f-8216-ff0f97f68df9). These K estimations are based on the information obtained on approximately 1600 samples collected in Southern Ontario by Ontario Institute of Pedology surveyors. Values used here follow the recommendation by [Wall et al., 2002](https://sis.agr.gc.ca/cansis/publications/manuals/2002-92/rusle-can.pdf) (**Figure 15**). They suggest that if the organic matter content of a soil is unknown and cannot be obtained through extensive soil testing fieldwork, 'average K' values should be used for RUSLE modelling.
 
 ![](img/k_factor_input.png)
 
-**Figure 15**: Soil Erodibility (K) input data for for the study area located in West Kootenay region of southeastern British Columbia. Data sourced from the Ontario Ministry of Agriculture, Food and Rural Affairs](<http://www.omafra.gov.on.ca/english/engineer/facts/12-051.htm>) and soil data from the [British Columbia Soil Survey](https://catalogue.data.gov.bc.ca/dataset/20150a67-5a2d-425f-8216-ff0f97f68df9).
+**Figure 15**: Soil Erodibility (K) input data for for the study area located in the West Kootenay region of southeastern British Columbia. Data sourced from the Ontario Ministry of Agriculture, Food and Rural Affairs](<http://www.omafra.gov.on.ca/english/engineer/facts/12-051.htm>) and soil data from the [British Columbia Soil Survey](https://catalogue.data.gov.bc.ca/dataset/20150a67-5a2d-425f-8216-ff0f97f68df9).
 
 ### Calculating the K Factor: {#sec-calculating-the-k-factor .unnumbered}
 
@@ -323,7 +323,7 @@ K_factor <- rasterize(K_values, R_factor, field = "Average_K",
 
 **Figure 16**: Soil erodibility factor (K) values measured the percentage erodiibilty of soil textures for the Winlaw and Trozzo Creek watershed study areas. The highest K values (max = 0.050) are associated with the Silty Loam soil texture, and the lowest K values (min = 0.005) are associated with the Loamy Sand texture. Data sourced from the [British Columbia Soil Survey](https://catalogue.data.gov.bc.ca/dataset/20150a67-5a2d-425f-8216-ff0f97f68df9).
 
-## Factor 4 - Crop/Vegetation and Management Factor {#sec-factor-4 .unnumbered}
+## Factor 4 - Crop/Vegetation and Management Factor {#sec-factor-4---cropvegetation-and-management-factor .unnumbered}
 
 ### Input Data: {#sec-input-data-c .unnumbered}
 
@@ -333,19 +333,19 @@ There are no current, or recorded soil erosion management practices being implem
 
 ![](img/c_factor_input_vri.png)
 
-**Figure 17** Crop/Vegetation and Management Factor (C) Vegetation Resource Inventory (VRI) data for for the study area located in West Kootenay region of southeastern British Columbia. Data sourced from the [Vegetation Resource Inventory (VRI)](https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-inventory).
+**Figure 17** Crop/Vegetation and Management Factor (C) Vegetation Resource Inventory (VRI) data for for the study area located in the West Kootenay region of southeastern British Columbia. Data sourced from the [Vegetation Resource Inventory (VRI)](https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-inventory).
 
 2.  Fire Burn Severity, specified by provincial [Burn Severity Mapping](https://catalogue.data.gov.bc.ca/dataset/fire-burn-severity-historical) completed using Landsat or Satellite imagery (**Figure 18**).
 
 ![](img/c_factor_input_bs.png)
 
-**Figure 18**: Crop/Vegetation and Management Factor (C) Burn Severity Mapping data for for the study area located in West Kootenay region of southeastern British Columbia. Data sourced from BC [Burn Severity Mapping](https://catalogue.data.gov.bc.ca/dataset/fire-burn-severity-historical) completed using Landsat or Satellite imagery.
+**Figure 18**: Crop/Vegetation and Management Factor (C) Burn Severity Mapping data for for the study area located in the West Kootenay region of southeastern British Columbia. Data sourced from BC [Burn Severity Mapping](https://catalogue.data.gov.bc.ca/dataset/fire-burn-severity-historical) completed using Landsat or Satellite imagery.
 
 3.  Road network, sourced from the provincial [Digital Road Atlas](https://www2.gov.bc.ca/gov/content/data/geographic-data-services/topographic-data/roads) (**Figure 19**)
 
-![](img/c_factor_input_roads10m.png){</center>
+![](img/c_factor_input_roads10m.png)
 
-**Figure 19**: Crop/Vegetation and Management Factor (C) Road data for for the study area located in West Kootenay region of southeastern British Columbia. Data sourced from BC [Digital Road Atlas](https://www2.gov.bc.ca/gov/content/data/geographic-data-services/topographic-data/roads) and bufferd to 10m.
+**Figure 19**: Crop/Vegetation and Management Factor (C) Road data for for the study area located in the West Kootenay region of southeastern British Columbia. Data sourced from BC [Digital Road Atlas](https://www2.gov.bc.ca/gov/content/data/geographic-data-services/topographic-data/roads) and bufferd to 10m.
 
 ### Calculating the C Factor: {#sec-calculating-the-c-factor .unnumbered}
 
@@ -441,7 +441,7 @@ C_Factor_Pre_Fire <- mosaic(vri, roads, fun = "max", tolerance = 0.2)
 
 This project is concerned with soil erosion modeling in a region which experienced a large fire. To that end, we produce two C Factor rasters, one pre-burn (**Figure 20**) and one post-burn (**Figure 21**).
 
-![](img/c_factor_pre_burn_roads10m.png)}
+![](img/c_factor_pre_burn_roads10m.png)
 
 **Figure 20:** Pre-burn Crop/Vegetation and Management Factor (C) for the Winlaw and Trozzo Creek watershed study areas.
 

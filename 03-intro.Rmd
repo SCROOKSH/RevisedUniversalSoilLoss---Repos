@@ -16,7 +16,7 @@ rgl::setupKnitr(autoprint = TRUE)
 library(kableExtra)
 ```
 
-# RUSLE Factors {#factors .unnumbered}
+# RUSLE Factors {#sec-rusle-factors .unnumbered}
 
 The Revised Universal Soil Loss Equation (RUSLE) is a modified version of the Universal Soil Loss Equation (USLE) proposed by [Wischmeier and Smith, 1978](https://naldc.nal.usda.gov/download/CAT79706928/PDF), which was developed for predicting annual soil loss across agriculture regions. In this study, the RUSLE is used to estimate soil loss during the first year after fire (Trozzo Creek Fire (2021)).
 
@@ -29,13 +29,13 @@ A = R * LS * K * C * P
 ```
 Where **R** is the rainfall erosivity, **LS** is a non-dimensional topographic factor, **K** is the soil erodibility, **C** is a cover-management factor, and **P** reflects soil conservation practices.
 
-## Factor 1 - Rainfall Erosivity (R) {#sec-factor-1 .unnumbered}
+## Factor 1 - Rainfall Erosivity (R) {#sec-factor-1---rainfall-erosivity-info .unnumbered}
 
 R is the rainfall and runoff factor by geographic location. The greater the intensity and duration of the rain storm, the higher the erosion potential.
 
 Among the factors included in RUSLE, rainfall erosivity is often most closely correlated with temporal trends in soil loss ([Hedding et al.,2020](https://www.researchgate.net/publication/336586973_A_comprehensive_study_of_erosivity_and_soil_erosion_over_a_small_tropical_islet_Round_Island_Mauritius)), since sediments are rarely detached without sufficient rainfall. The impact of rainfall's kinetic energy on soil erosion is captured in the R factor. We use global rainfall erosivity data combined and provided by the [European Soil Data Centre (ESDAC)](https://esdac.jrc.ec.europa.eu/content/global-rainfall-erosivity#tabs-0-description=1). The data used in this study is the most accurate and currently available in the study region. However, the spatial scale of this data is a limitation and prevents high-resolution RUSLE outputs from being derived.
 
-## Factor 2 - Slope Length (LS) {#sec-factor-2 .unnumbered}
+## Factor 2 - Slope Length (LS) {#sec-factor-2---slope-length-info .unnumbered}
 
 LS is the slope length-gradient factor. The LS factor represents a ratio of soil loss under given conditions to that at a site. The steeper and longer the slope, the higher the risk for erosion.
 
@@ -67,7 +67,7 @@ average_LS_df %>%
   column_spec(1, width = "1.5cm",  border_right = TRUE)
 ```
 
-## Factor 3 - Soil Erodibility (K) {#factor3 .unnumbered .unnumbered}
+## Factor 3 - Soil Erodibility (K) {#sec-factor-3---soil-erodibility-info .unnumbered .unnumbered}
 
 K is the soil erodibility factor. It is the average soil loss in tonnes/hectare (tons/acre) for a particular soil. K is a measure of the susceptibility of soil particles to detachment and transport by rainfall and runoff.
 
@@ -86,7 +86,7 @@ average_K_df %>%
   kable_classic_2(full_width = F, html_font = "Times New Roman")
 ```
 
-## Factor 4 - Crop/Vegetation and Management Factor (C) {#sec-factor-4 .unnumbered}
+## Factor 4 - Crop/Vegetation and Management Factor (C) {#sec-factor-4---cropvegetation-and-management-factor-info .unnumbered}
 
 C is the crop/vegetation and management factor. It is used to determine the relative effectiveness of soil and crop management systems in terms of preventing soil loss.
 
@@ -113,7 +113,7 @@ average_C_df %>%
     column_spec(1, width = "2cm",  border_right = TRUE)
 ```
 
-## Factor 5 - The Support Practice Factor (P) {#sec-factor-5 .unnumbered}
+## Factor 5 - The Support Practice Factor (P) {#sec-factor-5---the-support-practice-factor-info .unnumbered}
 
 P is the support practice factor. It reflects the effects of practices that will reduce the amount and rate of the water runoff and thus reduce the amount of erosion.
 
