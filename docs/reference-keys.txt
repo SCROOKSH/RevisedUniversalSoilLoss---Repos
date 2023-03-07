@@ -1,2 +1,2 @@
-factor-1---rainfall-erosivity-r-sec-factor-1rainfall-erosivity-r-.unnumbered
-factor-2---slope-length-ls-sec-factor-2slope-length-ls-.unnumbered
+sec-factor-1
+sec-factor-2
