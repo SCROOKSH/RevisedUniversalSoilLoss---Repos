@@ -61,7 +61,7 @@ All input raster and vector surfaces must have the same Coordinate Reference Sys
 projection <- crs("+proj=utm +zone=11 +ellps=GRS80 +units=m +no_defs")
 ```
 
-## Factor 1 - Rainfall Erosivity (R) {#sec-factor-1}
+## Factor 1 - Rainfall Erosivity (R) {#sec-factor-1 .unnumbered}
 
 ### Input Data: {#sec-input-data .unnumbered}
 
@@ -80,7 +80,7 @@ R_factor <- crop(R_factor, crop_extent)
 
 **Figure 2**: Rainfall factor (R) values, measured in MJ mm ha-1 h-1 yr-1, for the Winlaw and Trozzo Creek watersheds. The highest R values (max = 622) in the study area are located in the southwest, and the lowest values (min = 484) are located in the northeast. Data sourced from the [Rainfall erosivity dataset (2017)](https://esdac.jrc.ec.europa.eu/content/global-rainfall-erosivity#tabs-0-description=1).
 
-## Factor 2 - Slope Length (LS) {#sec-factor-2}
+## Factor 2 - Slope Length (LS) {#sec-factor-2 .unnumbered}
 
 In this study, the LS factor is calculated based [Desmet and Gover., 1996](https://www.researchgate.net/publication/233425999_A_GIS_procedure_for_automatically_calculating_the_USLE_LS_factor_on_topographically_complex_landscape_units). Following [Desmet and Gover., 1996](https://www.researchgate.net/publication/233425999_A_GIS_procedure_for_automatically_calculating_the_USLE_LS_factor_on_topographically_complex_landscape_units) several sub-factors are calculated and used to inform the production of a final LS raster surface.
 
@@ -320,8 +320,6 @@ K_factor <- rasterize(K_values, R_factor, field = "Average_K",
 ```
 
 ![**Figure 16**: Soil erodibility factor (K) values measured the percentage erodiibilty of soil textures for the Winlaw and Trozzo Creek watershed study areas. The highest K values (max = 0.050) are associated with the Silty Loam soil texture, and the lowest K values (min = 0.005) are associated with the Loamy Sand texture. Data sourced from the British Columbia Soil Survey.](img/k_factor.png)
-
-**Figure 16**: Soil erodibility factor (K) values measured the percentage erodiibilty of soil textures for the Winlaw and Trozzo Creek watershed study areas. The highest K values (max = 0.050) are associated with the Silty Loam soil texture, and the lowest K values (min = 0.005) are associated with the Loamy Sand texture. Data sourced from the [British Columbia Soil Survey](https://catalogue.data.gov.bc.ca/dataset/20150a67-5a2d-425f-8216-ff0f97f68df9).
 
 ## Factor 4 - Crop/Vegetation and Management Factor {#sec-factor-4---cropvegetation-and-management-factor .unnumbered}
 

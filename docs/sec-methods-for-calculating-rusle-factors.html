@@ -160,12 +160,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="sec-methods-for-calculating-rusle-factors.html"><a href="sec-methods-for-calculating-rusle-factors.html#sec-required-r-packages"><i class="fa fa-check"></i>Required R Packages:</a></li>
 <li class="chapter" data-level="" data-path="sec-methods-for-calculating-rusle-factors.html"><a href="sec-methods-for-calculating-rusle-factors.html#sec-setting-the-coordinate-reference-system"><i class="fa fa-check"></i>Setting the Coordinate Reference System:</a></li>
 </ul></li>
-<li class="chapter" data-level="0.1" data-path="sec-methods-for-calculating-rusle-factors.html"><a href="sec-methods-for-calculating-rusle-factors.html#sec-factor-1"><i class="fa fa-check"></i><b>0.1</b> Factor 1 - Rainfall Erosivity (R)</a>
+<li class="chapter" data-level="" data-path="sec-methods-for-calculating-rusle-factors.html"><a href="sec-methods-for-calculating-rusle-factors.html#sec-factor-1"><i class="fa fa-check"></i>Factor 1 - Rainfall Erosivity (R)</a>
 <ul>
 <li class="chapter" data-level="" data-path="sec-methods-for-calculating-rusle-factors.html"><a href="sec-methods-for-calculating-rusle-factors.html#sec-input-data"><i class="fa fa-check"></i>Input Data:</a></li>
 <li class="chapter" data-level="" data-path="sec-methods-for-calculating-rusle-factors.html"><a href="sec-methods-for-calculating-rusle-factors.html#sec-calculating-the-r-factor"><i class="fa fa-check"></i>Calculating the R Factor:</a></li>
 </ul></li>
-<li class="chapter" data-level="0.2" data-path="sec-methods-for-calculating-rusle-factors.html"><a href="sec-methods-for-calculating-rusle-factors.html#sec-factor-2"><i class="fa fa-check"></i><b>0.2</b> Factor 2 - Slope Length (LS)</a>
+<li class="chapter" data-level="" data-path="sec-methods-for-calculating-rusle-factors.html"><a href="sec-methods-for-calculating-rusle-factors.html#sec-factor-2"><i class="fa fa-check"></i>Factor 2 - Slope Length (LS)</a>
 <ul>
 <li class="chapter" data-level="" data-path="sec-methods-for-calculating-rusle-factors.html"><a href="sec-methods-for-calculating-rusle-factors.html#sec-input-data-ls"><i class="fa fa-check"></i>Input Data:</a></li>
 <li class="chapter" data-level="" data-path="sec-methods-for-calculating-rusle-factors.html"><a href="sec-methods-for-calculating-rusle-factors.html#sec-calculating-the-ls-factor"><i class="fa fa-check"></i>Calculating the LS Factor:</a></li>
@@ -244,8 +244,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="sec-methods-for-calculating-rusle-factors.html#cb2-1" aria-hidden="true" tabindex="-1"></a>projection <span class="ot">&lt;-</span> <span class="fu">crs</span>(<span class="st">&quot;+proj=utm +zone=11 +ellps=GRS80 +units=m +no_defs&quot;</span>)</span></code></pre></div>
 </div>
 </div>
-<div id="sec-factor-1" class="section level2 hasAnchor" number="0.1">
-<h2><span class="header-section-number">0.1</span> Factor 1 - Rainfall Erosivity (R)<a href="sec-methods-for-calculating-rusle-factors.html#sec-factor-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sec-factor-1" class="section level2 unnumbered hasAnchor">
+<h2>Factor 1 - Rainfall Erosivity (R)<a href="sec-methods-for-calculating-rusle-factors.html#sec-factor-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="sec-input-data" class="section level3 unnumbered hasAnchor">
 <h3>Input Data:<a href="sec-methods-for-calculating-rusle-factors.html#sec-input-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Data for the R factor is sourced from the <a href="https://esdac.jrc.ec.europa.eu/content/global-rainfall-erosivity#tabs-0-description=1">Rainfall erosivity dataset (2017)</a>. The provided R-factor map at resolutions of 30 arc-sec (~1 km at the Equator). This data offers complete global rainfall erosivity data based on 3625 precipitation stations and around 60,000 years of rainfall records at high temporal resolution (1 to 60 minutes). Rainfall erosivity values (MJ mm ha-1 h-1 yr-1) for the study area range between 483.7963 and 622.4443 MJ mm ha-1 h-1 yr-1. These values are consistent with those reported for British Columbia. For example, according to a report by <a href="https://sis.agr.gc.ca/cansis/publications/manuals/2002-92/rusle-can.pdf">Agriculture and Agri-Food Canada</a>, R values in Vancouver, B.C. are approximately 378 MJ mm ha-1 h-1. Marginally lower R values in the study area are explained by the geographic location of the study area, being inland from the west coast temperate zone.</p>
@@ -259,8 +259,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Figure 2</strong>: Rainfall factor (R) values, measured in MJ mm ha-1 h-1 yr-1, for the Winlaw and Trozzo Creek watersheds. The highest R values (max = 622) in the study area are located in the southwest, and the lowest values (min = 484) are located in the northeast. Data sourced from the <a href="https://esdac.jrc.ec.europa.eu/content/global-rainfall-erosivity#tabs-0-description=1">Rainfall erosivity dataset (2017)</a>.</p>
 </div>
 </div>
-<div id="sec-factor-2" class="section level2 hasAnchor" number="0.2">
-<h2><span class="header-section-number">0.2</span> Factor 2 - Slope Length (LS)<a href="sec-methods-for-calculating-rusle-factors.html#sec-factor-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sec-factor-2" class="section level2 unnumbered hasAnchor">
+<h2>Factor 2 - Slope Length (LS)<a href="sec-methods-for-calculating-rusle-factors.html#sec-factor-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this study, the LS factor is calculated based <a href="https://www.researchgate.net/publication/233425999_A_GIS_procedure_for_automatically_calculating_the_USLE_LS_factor_on_topographically_complex_landscape_units">Desmet and Gover., 1996</a>. Following <a href="https://www.researchgate.net/publication/233425999_A_GIS_procedure_for_automatically_calculating_the_USLE_LS_factor_on_topographically_complex_landscape_units">Desmet and Gover., 1996</a> several sub-factors are calculated and used to inform the production of a final LS raster surface.</p>
 <div id="sec-input-data-ls" class="section level3 unnumbered hasAnchor">
 <h3>Input Data:<a href="sec-methods-for-calculating-rusle-factors.html#sec-input-data-ls" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -604,7 +604,6 @@ Sandy Loam
 <img src="img/k_factor.png" alt="" />
 <p class="caption"><strong>Figure 16</strong>: Soil erodibility factor (K) values measured the percentage erodiibilty of soil textures for the Winlaw and Trozzo Creek watershed study areas. The highest K values (max = 0.050) are associated with the Silty Loam soil texture, and the lowest K values (min = 0.005) are associated with the Loamy Sand texture. Data sourced from the British Columbia Soil Survey.</p>
 </div>
-<p><strong>Figure 16</strong>: Soil erodibility factor (K) values measured the percentage erodiibilty of soil textures for the Winlaw and Trozzo Creek watershed study areas. The highest K values (max = 0.050) are associated with the Silty Loam soil texture, and the lowest K values (min = 0.005) are associated with the Loamy Sand texture. Data sourced from the <a href="https://catalogue.data.gov.bc.ca/dataset/20150a67-5a2d-425f-8216-ff0f97f68df9">British Columbia Soil Survey</a>.</p>
 </div>
 </div>
 <div id="sec-factor-4---cropvegetation-and-management-factor" class="section level2 unnumbered hasAnchor">

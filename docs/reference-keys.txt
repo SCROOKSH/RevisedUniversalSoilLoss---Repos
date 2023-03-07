@@ -1,2 +1,0 @@
-sec-factor-1
-sec-factor-2
